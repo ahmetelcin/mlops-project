@@ -24,7 +24,7 @@ jobs:
       # Step 5b: Set up Git LFS
       # We need this to download the large model file (.h5) stored with LFS.
       - name: Set up Git LFS
-        uses: git-lfs/setup-git-lfs@v5
+        uses: git-lfs/setup-lfs@v5
         with:
           # Pull LFS files
           lfs: true
