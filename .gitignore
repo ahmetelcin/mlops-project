@@ -1,21 +1,21 @@
-# Sanal ortamı görmezden gel
+# venv
 venv/
 .venv/
 
-# Python'un ara dosyalarını görmezden gel
+#python
 __pycache__/
 *.pyc
 
-# PyCharm/VSCode gibi IDE'lerin ayar dosyalarını görmezden gel
+# pycharm and vscode
 .idea/
 .vscode/
 
-# --- EN ÖNEMLİ KISIM: VERİYİ GÖRMEZDEN GEL ---
-# Orijinal Kaggle verisi (800MB+)
+
+# train data
 train/
 test1/
 dogs-vs-cats.zip
 train.zip
 
-# Bizim kopyalayarak oluşturduğumuz küçük veri seti (1.5GB)
+# Other train data
 cats_and_dogs_small/

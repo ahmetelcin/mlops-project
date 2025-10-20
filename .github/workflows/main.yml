@@ -1,0 +1,49 @@
+# 1. Workflow Name
+name: Docker Build and Push
+
+# 2. Trigger: When will this workflow run?
+# On every 'push' event to the "main" branch.
+on:
+  push:
+    branches: [ "main" ]
+
+# 3. Jobs: A list of tasks to perform
+jobs:
+  build-and-push:
+    # 4. Runner: What virtual machine will this job run on?
+    # The latest available Ubuntu (Linux) machine.
+    runs-on: ubuntu-latest
+
+    # 5. Steps: The sequence of commands to execute
+    steps:
+      # Step 5a: Check out the code
+      # Downloads our repository code onto the virtual machine.
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # Step 5b: Set up Git LFS
+      # We need this to download the large model file (.h5) stored with LFS.
+      - name: Set up Git LFS
+        uses: git-lfs/setup-git-lfs@v5
+        with:
+          # Pull LFS files
+          lfs: true
+
+      # Step 5c: Log in to Docker Hub
+      # This step will require secrets to be added to GitHub shortly.
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Step 5d: Build and push the Docker image
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          # Where to build from? '.' -> the current directory
+          context: .
+          # Push the image after building
+          push: true
+          # What will the image be named? (e.g., ahmetelcin/mlops-projesi:latest)
+          tags: ${{ secrets.DOCKER_USERNAME }}/mlops-projesi:latest
